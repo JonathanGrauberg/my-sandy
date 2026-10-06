@@ -1,0 +1,55 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@theme inline {
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+  --font-mono: var(--font-space-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-charcoal: var(--charcoal);
+  --color-carbon: var(--carbon);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+}
+
+:root {
+  --background: #000000;
+  --foreground: #f5f3ef;
+  --charcoal: #151515;
+  --carbon: #101010;
+  --muted: #252525;
+  --muted-foreground: #85827c;
+  --border: rgba(245, 243, 239, 0.14);
+  --radius: 0px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--background); }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-inter), sans-serif; }
+::selection { background: #f5f3ef; color: #000; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+.font-serif { font-family: var(--font-playfair), serif; }
+.font-mono { font-family: var(--font-space-mono), monospace; }
+.font-sans { font-family: var(--font-inter), sans-serif; }
+
+@keyframes fade-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.hero-reveal { animation: fade-up 1s ease-out both; }
+
+@theme {
+  /* Zoom-out lento del carrusel (dura lo que el slide + el fundido). */
+  --animate-ken-burns: ken-burns 8s ease-out forwards;
+  --animate-slide-progress: slide-progress linear forwards;
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes ken-burns { from { transform: scale(1.12); } to { transform: scale(1); } }
+  @keyframes slide-progress { from { width: 0%; } to { width: 100%; } }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+}
