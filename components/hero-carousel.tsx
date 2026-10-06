@@ -13,7 +13,7 @@ const SLIDE_MS = 6500
  * - 'spotlight': luz suave alrededor del cursor, el resto de la foto queda en penumbra.
  * - 'none': sin efecto.
  */
-const CURSOR_EFFECT: 'glass' | 'spotlight' | 'none' = 'glass'
+const CURSOR_EFFECT: 'glass' | 'spotlight' | 'none' = 'none'
 
 const slides = [
   { src: '/my-sandy-hero.png', alt: 'Campaña MY SANDY', label: 'Nueva temporada', position: 'object-center' },
