@@ -44,7 +44,7 @@ export default function Page() {
       <section id="historia" className="relative z-10 grid md:grid-cols-2">
         <div className="group relative min-h-[60vh] overflow-hidden bg-muted md:min-h-[760px]">
           <Parallax speed={0.12} className="absolute inset-0">
-            <Image src="/my-sandy-story.png" alt="Detalle de textura y joyería de la campaña MY SANDY" fill sizes="(min-width: 768px) 50vw, 100vw" className={`object-cover group-hover:scale-105 ${hoverColor}`} />
+            <Image src="/images/historia.jpg" alt="Percha con el logo de MY SANDY y una prenda rosa en el local" fill sizes="(min-width: 768px) 50vw, 100vw" className={`object-cover group-hover:scale-105 ${hoverColor}`} />
           </Parallax>
           <span className="absolute left-6 top-6 font-mono text-[10px] uppercase tracking-[0.3em] text-white/70">MS / Historia</span>
         </div>
@@ -64,7 +64,7 @@ export default function Page() {
       {/* Banda de imagen con parallax y frase */}
       <section className="group relative z-10 flex min-h-[70vh] items-center justify-center overflow-hidden bg-black">
         <Parallax speed={0.14} className="absolute inset-0">
-          <Image src="/my-sandy-hero.png" alt="" fill sizes="100vw" className="object-cover opacity-70" />
+          <Image src="/images/hero-mobile.jpg" alt="" fill sizes="100vw" className="object-cover object-top opacity-70" />
         </Parallax>
         <div className="absolute inset-0 bg-black/40" />
         <Reveal className="relative px-6 text-center">

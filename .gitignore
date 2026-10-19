@@ -16,3 +16,6 @@ node_modules
 # Config local de Claude
 .claude/
 *.tsbuildinfo
+
+# Originales en alta de la diseñadora (muy pesados para git)
+originales-diseno/

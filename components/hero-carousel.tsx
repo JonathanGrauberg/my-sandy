@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import { getImageProps } from 'next/image'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { site } from '@/lib/site'
@@ -15,11 +15,32 @@ const SLIDE_MS = 6500
  */
 const CURSOR_EFFECT: 'glass' | 'spotlight' | 'none' = 'none'
 
-const slides = [
-  { src: '/my-sandy-hero.png', alt: 'Campaña MY SANDY', label: 'Nueva temporada', position: 'object-center' },
-  { src: '/my-sandy-events.png', alt: 'Accesorios MY SANDY', label: 'Accesorios', position: 'object-left' },
-  { src: '/my-sandy-story.png', alt: 'Detalle de prendas MY SANDY', label: 'Esenciales', position: 'object-right' },
+// Para sumar slides al carrusel, agregar más objetos acá. Con uno solo se ocultan los indicadores.
+// `mobileSrc` (opcional) es la versión vertical que se muestra en celulares.
+const slides: { src: string; mobileSrc?: string; alt: string; label: string; position: string }[] = [
+  {
+    src: '/images/hero.jpg',
+    mobileSrc: '/images/hero-mobile.jpg',
+    alt: 'Campera en percha MY SANDY con el cartel del local de fondo',
+    label: 'Nueva temporada',
+    position: 'object-center',
+  },
 ]
+
+/** Imagen a pantalla completa con versión de celular opcional (art direction con <picture>). */
+function SlideImage({ slide, priority, className }: { slide: (typeof slides)[number]; priority: boolean; className?: string }) {
+  const common = { alt: slide.alt, fill: true, priority, quality: 85 }
+  const { props: desktop } = getImageProps({ ...common, src: slide.src, sizes: '100vw' })
+  if (!slide.mobileSrc) return <img {...desktop} className={className} />
+  const { props: mobile } = getImageProps({ ...common, src: slide.mobileSrc, sizes: '100vw' })
+  return (
+    <picture>
+      {/* Con `images.unoptimized` no hay srcSet, así que se usa la ruta directa. */}
+      <source media="(max-width: 767px)" srcSet={mobile.srcSet ?? mobile.src} />
+      <img {...desktop} className={className} />
+    </picture>
+  )
+}
 
 export function HeroCarousel() {
   const [active, setActive] = useState(0)
@@ -42,6 +63,7 @@ export function HeroCarousel() {
 
   // Avance automático. Se reinicia cada vez que cambia el slide (también si lo cambia el usuario).
   useEffect(() => {
+    if (slides.length < 2) return
     const id = setTimeout(() => goTo((active + 1) % slides.length), SLIDE_MS)
     return () => clearTimeout(id)
   }, [active, goTo])
@@ -154,12 +176,9 @@ export function HeroCarousel() {
                 i === active ? 'z-10 opacity-100' : 'z-0 opacity-0',
               )}
             >
-              <Image
-                src={slide.src}
-                alt={slide.alt}
-                fill
+              <SlideImage
+                slide={slide}
                 priority={i === 0}
-                sizes="100vw"
                 className={cn(
                   'object-cover',
                   slide.position,
@@ -202,7 +221,7 @@ export function HeroCarousel() {
       </div>
 
       {/* Indicadores del carrusel con barra de progreso */}
-      <div className="absolute inset-x-0 bottom-0 z-30 mx-auto flex max-w-6xl gap-4 px-6 pb-8 md:gap-8 md:px-12">
+      {slides.length > 1 && <div className="absolute inset-x-0 bottom-0 z-30 mx-auto flex max-w-6xl gap-4 px-6 pb-8 md:gap-8 md:px-12">
         {slides.map((slide, i) => (
           <button
             key={slide.label}
@@ -224,7 +243,7 @@ export function HeroCarousel() {
             </span>
           </button>
         ))}
-      </div>
+      </div>}
     </section>
   )
 }
