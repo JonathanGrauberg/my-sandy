@@ -205,7 +205,7 @@ export function HeroCarousel() {
 
       <div ref={contentRef} className="relative z-30 mx-auto flex w-full max-w-6xl flex-col items-center px-6 pb-28 text-center md:pb-32">
         <p className="hero-reveal mb-5 font-mono text-[10px] uppercase tracking-[0.45em] text-white/80">
-          {site.tagline} / {site.city}
+          {site.city}
         </p>
         <h1 className="hero-reveal font-serif text-[18vw] leading-[0.8] tracking-[-0.06em] text-white [animation-delay:150ms] md:text-[13rem]">
           MY SANDY

@@ -2,7 +2,6 @@
 
 export const site = {
   name: 'MY SANDY',
-  tagline: 'Modas urbanas',
   address: 'Urquiza 1062',
   city: 'Paraná, Entre Ríos',
   phone: { label: '0343 431 2364', href: 'tel:+543434312364' },

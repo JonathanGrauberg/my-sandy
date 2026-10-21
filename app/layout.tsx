@@ -8,7 +8,7 @@ const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfa
 const spaceMono = Space_Mono({ subsets: ['latin'], weight: ['400', '700'], variable: '--font-space-mono' })
 
 export const metadata: Metadata = {
-  title: 'MY SANDY — Modas urbanas en Paraná',
+  title: 'MY SANDY — Paraná, Entre Ríos',
   description: 'Mujer, Hombres y Outlet. Visitanos en Urquiza 1062, Paraná, Entre Ríos.',
   generator: 'v0.app',
 }

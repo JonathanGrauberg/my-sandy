@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { HeroCarousel } from '@/components/hero-carousel'
 import { Parallax, Reveal } from '@/components/motion'
+import { PurposeAccordion } from '@/components/purpose-accordion'
 import { SiteHeader } from '@/components/site-header'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 import { site, whatsapp } from '@/lib/site'
@@ -14,8 +15,6 @@ const events = [
   { title: 'The Edit', date: '24.05.24', imagePosition: 'object-right' },
 ]
 
-const marquee = ['Nueva temporada', 'Moda urbana', 'MY SANDY', site.address, 'Paraná', 'Entre Ríos']
-
 // Imágenes en B&N que toman color al pasar el mouse (solo en dispositivos con mouse; en el celu se ven a color).
 const hoverColor = 'transition-[filter,transform] duration-1000 [@media(hover:hover)]:grayscale [@media(hover:hover)]:group-hover:grayscale-0'
 
@@ -25,34 +24,27 @@ export default function Page() {
       <SiteHeader />
       <HeroCarousel />
 
-      {/* Cinta en movimiento */}
-      <div className="relative z-10 overflow-hidden border-y border-white/10 bg-black py-5" aria-hidden="true">
-        <div className="flex w-max animate-marquee">
-          {[0, 1].map((copy) => (
-            <div key={copy} className="flex shrink-0">
-              {[...marquee, ...marquee].map((word, i) => (
-                <span key={i} className="flex items-center font-serif text-2xl italic text-white/80 md:text-3xl">
-                  <span className="px-8">{word}</span>
-                  <span className="text-xs not-italic text-white/30">✦</span>
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-
       <section id="historia" className="relative z-10 grid md:grid-cols-2">
-        <div className="group relative min-h-[60vh] overflow-hidden bg-muted md:min-h-[760px]">
+        {/* En compu la foto queda fija (sticky) mientras se lee el texto */}
+        <div className="group relative min-h-[60vh] overflow-hidden bg-muted md:sticky md:top-0 md:h-svh md:min-h-0 md:self-start">
           <Parallax speed={0.12} className="absolute inset-0">
             <Image src="/images/historia.jpg" alt="Percha con el logo de MY SANDY y una prenda rosa en el local" fill sizes="(min-width: 768px) 50vw, 100vw" className={`object-cover group-hover:scale-105 ${hoverColor}`} />
           </Parallax>
-          <span className="absolute left-6 top-6 font-mono text-[10px] uppercase tracking-[0.3em] text-white/70">MS / Historia</span>
+          <span className="absolute left-6 top-6 font-mono text-[10px] uppercase tracking-[0.3em] text-white/70">MS / Propósito</span>
         </div>
         <div className="flex flex-col justify-between bg-charcoal p-8 md:p-16 lg:p-24">
-          <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-muted-foreground">La historia</p>
-          <Reveal className="py-20 md:py-0">
-            <h2 className="max-w-lg font-serif text-5xl leading-[0.94] tracking-[-0.04em] text-white md:text-7xl">Donde el estilo encuentra su lugar.</h2>
-            <p className="mt-10 max-w-sm text-sm leading-7 text-white/60">Creemos en la moda con identidad propia. Una mirada precisa, prendas pensadas para usarse de verdad y una atención cercana, de las que ya no quedan.</p>
+          <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-muted-foreground">MY SANDY</p>
+          <Reveal className="py-16 md:py-14">
+            <h2 className="max-w-lg font-serif text-5xl leading-[0.94] tracking-[-0.04em] text-white md:text-6xl">Nuestro propósito</h2>
+            <p className="mt-10 max-w-xl font-serif text-xl leading-snug text-white/85 md:text-2xl">
+              En My Sandy creemos que vestir bien comienza mucho antes de elegir una prenda. Comienza en la forma en que una persona es recibida, escuchada y acompañada.
+            </p>
+            <div className="mt-10 max-w-xl">
+              <PurposeAccordion />
+            </div>
+            <p className="mt-10 max-w-xl border-l border-white/30 pl-6 font-serif text-xl italic leading-snug text-white md:text-2xl">
+              En My Sandy no buscamos simplemente vestir personas. Buscamos que cada una se sienta segura de quién es y de lo que proyecta.
+            </p>
             <a href="#contacto" className="group mt-10 inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.25em] text-white/80 transition-colors hover:text-white">
               Vení a conocernos <span className="transition-transform group-hover:translate-x-1">→</span>
             </a>
@@ -61,23 +53,11 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Banda de imagen con parallax y frase */}
-      <section className="group relative z-10 flex min-h-[70vh] items-center justify-center overflow-hidden bg-black">
+      {/* Banda de imagen con parallax, sin texto: solo aire */}
+      <section aria-hidden="true" className="relative z-10 min-h-[70vh] overflow-hidden bg-black">
         <Parallax speed={0.14} className="absolute inset-0">
-          <Image src="/images/hero-mobile.jpg" alt="" fill sizes="100vw" className="object-cover object-top opacity-70" />
+          <Image src="/images/hero-mobile.jpg" alt="" fill sizes="100vw" className="object-cover object-top" />
         </Parallax>
-        <div className="absolute inset-0 bg-black/40" />
-        <Reveal className="relative px-6 text-center">
-          <p className="mb-6 font-mono text-[10px] uppercase tracking-[0.4em] text-white/70">Seguinos</p>
-          <p className="font-serif text-6xl italic leading-[0.9] tracking-[-0.04em] text-white md:text-9xl">Vestí lo que sos.</p>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            {site.social.map((s) => (
-              <a key={s.href} href={s.href} target="_blank" rel="noreferrer" className="border border-white/40 px-6 py-3 font-mono text-[10px] uppercase tracking-[0.22em] text-white transition-colors hover:bg-white hover:text-black">
-                {s.label} ↗
-              </a>
-            ))}
-          </div>
-        </Reveal>
       </section>
 
       {SHOW_EVENTS && <section id="eventos" className="bg-carbon px-6 py-24 md:px-12 md:py-32">
@@ -148,7 +128,7 @@ export default function Page() {
             </div>
             <a href={whatsapp.mujer.href} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center bg-white px-7 py-4 font-mono text-[10px] uppercase tracking-[0.2em] text-black transition-colors hover:bg-white/80">Contactanos por WhatsApp</a>
           </div>
-          <p className="mt-16 font-mono text-[9px] uppercase tracking-[0.2em] text-white/25">© {new Date().getFullYear()} MY SANDY — Modas urbanas</p>
+          <p className="mt-16 font-mono text-[9px] uppercase tracking-[0.2em] text-white/25">© {new Date().getFullYear()} MY SANDY</p>
         </div>
       </footer>
 

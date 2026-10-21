@@ -47,9 +47,7 @@ body { margin: 0; background: var(--background); color: var(--foreground); font-
   /* Zoom-out lento del carrusel (dura lo que el slide + el fundido). */
   --animate-ken-burns: ken-burns 8s ease-out forwards;
   --animate-slide-progress: slide-progress linear forwards;
-  --animate-marquee: marquee 40s linear infinite;
 
   @keyframes ken-burns { from { transform: scale(1.12); } to { transform: scale(1); } }
   @keyframes slide-progress { from { width: 0%; } to { width: 100%; } }
-  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 }
