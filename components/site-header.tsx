@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 
@@ -28,8 +29,8 @@ export function SiteHeader() {
       )}
     >
       <div className="flex items-center justify-between px-6 md:px-12">
-        <a href="#inicio" aria-label="MY SANDY inicio" className="font-serif text-lg tracking-[0.28em] text-white" onClick={() => setOpen(false)}>
-          MS
+        <a href="#inicio" aria-label="MY SANDY inicio" className="transition-opacity hover:opacity-80" onClick={() => setOpen(false)}>
+          <Image src="/images/monograma-ms-blanco.png" alt="MY SANDY" width={793} height={537} priority className="h-7 w-auto md:h-8" />
         </a>
         <nav className="hidden gap-10 md:flex">
           {links.map((link) => (

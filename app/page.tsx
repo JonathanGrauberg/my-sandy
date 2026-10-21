@@ -98,7 +98,7 @@ export default function Page() {
       <footer id="contacto" className="relative z-10 bg-black px-6 pb-28 pt-24 md:px-12 md:pt-32">
         <div className="mx-auto max-w-6xl">
           <Reveal className="mb-16 flex flex-col justify-between gap-10 md:flex-row">
-            <div><p className="font-serif text-4xl tracking-[0.2em] text-white">MS</p><p className="mt-5 max-w-xs text-sm leading-6 text-white/50">Un espacio para vestir lo que sos. Visitanos, escribinos, encontrá tu próxima prenda.</p></div>
+            <div><Image src="/images/monograma-ms-blanco.png" alt="MY SANDY" width={793} height={537} className="h-12 w-auto" /><p className="mt-5 max-w-xs text-sm leading-6 text-white/50">Un espacio para vestir lo que sos. Visitanos, escribinos, encontrá tu próxima prenda.</p></div>
             <div className="flex flex-wrap gap-x-10 gap-y-4 font-mono text-[10px] uppercase tracking-[0.25em] text-white/60">
               {site.social.map((s) => (
                 <a key={s.href} href={s.href} target="_blank" rel="noreferrer" className="transition-colors hover:text-white">{s.label} ↗</a>
