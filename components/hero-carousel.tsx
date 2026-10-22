@@ -17,18 +17,35 @@ const CURSOR_EFFECT: 'glass' | 'spotlight' | 'none' = 'none'
 
 // Para sumar slides al carrusel, agregar más objetos acá. Con uno solo se ocultan los indicadores.
 // `mobileSrc` (opcional) es la versión vertical que se muestra en celulares.
-const slides: { src: string; mobileSrc?: string; alt: string; label: string; position: string }[] = [
+// `mobileLayers` (opcional) suma capas sobre la foto de celular para el efecto del cartel que se esconde
+// entre las plumas al hacer scroll. En ese caso `mobileSrc` es el fondo SIN cartel.
+type Slide = {
+  src: string
+  mobileSrc?: string
+  mobileLayers?: { sign: string; front: string }
+  alt: string
+  label: string
+  position: string
+}
+
+const slides: Slide[] = [
   {
     src: '/images/hero.jpg',
-    mobileSrc: '/images/hero-mobile.jpg',
+    mobileSrc: '/images/hero-mobile/fondo.jpg',
+    mobileLayers: { sign: '/images/hero-mobile/cartel.webp', front: '/images/hero-mobile/plumas.webp' },
     alt: 'Campera en percha MY SANDY con el cartel del local de fondo',
     label: 'Nueva temporada',
     position: 'object-center',
   },
 ]
 
+// Medidas de las capas de celular y cuánto sube el cartel para quedar escondido bajo las plumas.
+const MOBILE_W = 1080
+const MOBILE_H = 1620
+const SIGN_TRAVEL = 0.13 // fracción del alto de la foto
+
 /** Imagen a pantalla completa con versión de celular opcional (art direction con <picture>). */
-function SlideImage({ slide, priority, className }: { slide: (typeof slides)[number]; priority: boolean; className?: string }) {
+function SlideImage({ slide, priority, className }: { slide: Slide; priority: boolean; className?: string }) {
   const common = { alt: slide.alt, fill: true, priority, quality: 85 }
   const { props: desktop } = getImageProps({ ...common, src: slide.src, sizes: '100vw' })
   if (!slide.mobileSrc) return <img {...desktop} className={className} />
@@ -49,6 +66,7 @@ export function HeroCarousel() {
   const bgRef = useRef<HTMLDivElement>(null)
   const tiltRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
+  const signRef = useRef<HTMLDivElement>(null)
   const lensRef = useRef<HTMLDivElement>(null)
   const spotRef = useRef<HTMLDivElement>(null)
 
@@ -76,6 +94,14 @@ export function HeroCarousel() {
       frame = 0
       const y = Math.min(window.scrollY, window.innerHeight)
       if (bgRef.current) bgRef.current.style.transform = `translate3d(0, ${y * 0.35}px, 0)`
+      // Cartel de celular: sube hasta esconderse entre las plumas en la primera mitad de pantalla de scroll.
+      const section = sectionRef.current
+      if (signRef.current && section) {
+        const { width, height } = section.getBoundingClientRect()
+        const imageH = MOBILE_H * Math.max(width / MOBILE_W, height / MOBILE_H)
+        const progress = Math.min(y / (window.innerHeight * 0.5), 1)
+        signRef.current.style.transform = `translate3d(0, ${-progress * SIGN_TRAVEL * imageH}px, 0)`
+      }
       if (contentRef.current) {
         contentRef.current.style.transform = `translate3d(0, ${y * 0.15}px, 0)`
         contentRef.current.style.opacity = String(1 - y / (window.innerHeight * 0.7))
@@ -186,6 +212,22 @@ export function HeroCarousel() {
                   (i === active || i === prev) && 'animate-ken-burns',
                 )}
               />
+              {slide.mobileLayers && (
+                <div className="md:hidden" aria-hidden="true">
+                  <div ref={i === 0 ? signRef : undefined} className="absolute inset-0 will-change-transform">
+                    <img
+                      src={slide.mobileLayers.sign}
+                      alt=""
+                      className={cn('absolute inset-0 h-full w-full object-cover', slide.position, (i === active || i === prev) && 'animate-ken-burns')}
+                    />
+                  </div>
+                  <img
+                    src={slide.mobileLayers.front}
+                    alt=""
+                    className={cn('absolute inset-0 h-full w-full object-cover', slide.position, (i === active || i === prev) && 'animate-ken-burns')}
+                  />
+                </div>
+              )}
             </div>
           ))}
         </div>
