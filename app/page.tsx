@@ -56,7 +56,7 @@ export default function Page() {
       {/* Banda de imagen con parallax, sin texto: solo aire */}
       <section aria-hidden="true" className="relative z-10 min-h-[70vh] overflow-hidden bg-black">
         <Parallax speed={0.14} className="absolute inset-0">
-          <Image src="/images/hero-mobile.jpg" alt="" fill sizes="100vw" className="object-cover object-top" />
+          <Image src="/images/banda.jpg" alt="" fill sizes="100vw" className="object-cover object-center" />
         </Parallax>
       </section>
 

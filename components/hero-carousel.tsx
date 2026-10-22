@@ -1,6 +1,6 @@
 'use client'
 
-import Image, { getImageProps } from 'next/image'
+import { getImageProps } from 'next/image'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { site } from '@/lib/site'
@@ -207,15 +207,9 @@ export function HeroCarousel() {
         <p className="hero-reveal mb-5 font-mono text-[10px] uppercase tracking-[0.45em] text-white/80">
           {site.city}
         </p>
-        <h1 className="hero-reveal [animation-delay:150ms]">
-          <Image
-            src="/images/logo-my-sandy-blanco.png"
-            alt="MY SANDY"
-            width={808}
-            height={726}
-            priority
-            className="h-auto w-[56vw] max-w-[340px] drop-shadow-[0_4px_24px_rgba(0,0,0,0.35)] md:w-[22vw]"
-          />
+        {/* En celular la foto ya muestra el cartel "MY SANDY": el título queda oculto a la vista (sigue para Google y lectores de pantalla). */}
+        <h1 className="hero-reveal font-serif text-[18vw] leading-[0.8] tracking-[-0.06em] text-white [animation-delay:150ms] max-md:sr-only md:text-[13rem]">
+          MY SANDY
         </h1>
         <div className="hero-reveal mt-10 flex flex-wrap items-center justify-center gap-4 [animation-delay:300ms]">
           <a href="#historia" className="bg-white px-7 py-4 font-mono text-[10px] uppercase tracking-[0.25em] text-black transition-colors hover:bg-white/80">
