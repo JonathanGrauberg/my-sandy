@@ -11,10 +11,12 @@ export const site = {
   mapsEmbed:
     'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13573.566765101254!2d-60.53402507978097!3d-31.73250796317535!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x4a23d2a3679574fb!2sMy%20Sandy%20-%20Modas%20Urbanas!5e0!3m2!1ses-419!2sar!4v1661957269651!5m2!1ses-419!2sar',
   mapsLink: 'https://www.google.com/maps/search/?api=1&query=My+Sandy+Urquiza+1062+Paran%C3%A1',
+  // El primero es la cuenta principal (Mujer): es la del botón flotante.
   social: [
-    { label: 'Facebook', handle: 'MySandyModa', href: 'https://www.facebook.com/MySandyModa' },
-    { label: 'Instagram', handle: '@mysandyhombres', href: 'https://www.instagram.com/mysandyhombres' },
-  ],
+    { network: 'instagram', label: 'Instagram', handle: '@mysandyparana', href: 'https://www.instagram.com/mysandyparana' },
+    { network: 'instagram', label: 'Instagram Hombres', handle: '@mysandyhombres', href: 'https://www.instagram.com/mysandyhombres' },
+    { network: 'facebook', label: 'Facebook', handle: 'MySandyModa', href: 'https://www.facebook.com/MySandyModa' },
+  ] as const,
 }
 
 export const whatsapp = {

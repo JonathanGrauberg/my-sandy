@@ -3,6 +3,7 @@ import { HeroCarousel } from '@/components/hero-carousel'
 import { Parallax, Reveal } from '@/components/motion'
 import { PurposeAccordion } from '@/components/purpose-accordion'
 import { SiteHeader } from '@/components/site-header'
+import { FacebookIcon, InstagramIcon, WhatsAppIcon } from '@/components/social-icons'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 import { site, whatsapp } from '@/lib/site'
 
@@ -83,27 +84,24 @@ export default function Page() {
         </div>
       </section>}
 
-      <section className="relative z-10 border-t border-white/10 bg-charcoal px-6 py-16 md:px-12">
-        <Reveal className="mx-auto flex max-w-6xl flex-col justify-between gap-6 md:flex-row md:items-center">
-          <div>
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.35em] text-white/45">Trabajá con nosotros</p>
-            <p className="font-serif text-3xl text-white md:text-4xl">¿Querés sumarte al equipo?</p>
-          </div>
-          <a href={`mailto:${site.email}?subject=CV`} className="group inline-flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/80 transition-colors hover:text-white">
-            Mandanos tu CV a {site.email} <span className="transition-transform group-hover:translate-x-1">→</span>
-          </a>
-        </Reveal>
-      </section>
-
       <footer id="contacto" className="relative z-10 bg-black px-6 pb-28 pt-24 md:px-12 md:pt-32">
         <div className="mx-auto max-w-6xl">
           <Reveal className="mb-16 flex flex-col justify-between gap-10 md:flex-row">
             <div><Image src="/images/monograma-ms-blanco.png" alt="MY SANDY" width={793} height={537} className="h-12 w-auto" /><p className="mt-5 max-w-xs text-sm leading-6 text-white/50">Un espacio para vestir lo que sos. Visitanos, escribinos, encontrá tu próxima prenda.</p></div>
-            <div className="flex flex-wrap gap-x-10 gap-y-4 font-mono text-[10px] uppercase tracking-[0.25em] text-white/60">
+            {/* Redes con su logo, grandes y fáciles de tocar */}
+            <div className="flex flex-col gap-3 sm:min-w-72">
               {site.social.map((s) => (
-                <a key={s.href} href={s.href} target="_blank" rel="noreferrer" className="transition-colors hover:text-white">{s.label} ↗</a>
+                <a key={s.href} href={s.href} target="_blank" rel="noreferrer" className="flex items-center gap-4 border border-white/15 px-5 py-3.5 text-white/85 transition-colors hover:border-white/40 hover:bg-white/5 hover:text-white">
+                  {s.network === 'instagram' ? <InstagramIcon className="h-6 w-6 shrink-0" /> : <FacebookIcon className="h-6 w-6 shrink-0" />}
+                  <span className="text-base">{s.handle}</span>
+                  <span className="ml-auto text-xs text-white/40">{s.label}</span>
+                </a>
               ))}
-              <a href={whatsapp.mujer.href} target="_blank" rel="noreferrer" className="transition-colors hover:text-white">WhatsApp ↗</a>
+              <a href={whatsapp.mujer.href} target="_blank" rel="noreferrer" className="flex items-center gap-4 border border-white/15 px-5 py-3.5 text-white/85 transition-colors hover:border-white/40 hover:bg-white/5 hover:text-white">
+                <WhatsAppIcon className="h-6 w-6 shrink-0" />
+                <span className="text-base">{whatsapp.mujer.number}</span>
+                <span className="ml-auto text-xs text-white/40">WhatsApp</span>
+              </a>
             </div>
           </Reveal>
           {/* Mapa real en tono oscuro: toma color al pasar el mouse */}
@@ -128,7 +126,13 @@ export default function Page() {
             </div>
             <a href={whatsapp.mujer.href} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center bg-white px-7 py-4 font-mono text-[10px] uppercase tracking-[0.2em] text-black transition-colors hover:bg-white/80">Contactanos por WhatsApp</a>
           </div>
-          <p className="mt-16 font-mono text-[9px] uppercase tracking-[0.2em] text-white/25">© {new Date().getFullYear()} MY SANDY</p>
+          <div className="mt-16 flex flex-col justify-between gap-3 text-xs text-white/40 md:flex-row">
+            <p>
+              ¿Querés trabajar con nosotros? Mandá tu CV a{' '}
+              <a href={`mailto:${site.email}?subject=CV`} className="underline underline-offset-4 transition-colors hover:text-white">{site.email}</a>
+            </p>
+            <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/25">© {new Date().getFullYear()} MY SANDY</p>
+          </div>
         </div>
       </footer>
 
